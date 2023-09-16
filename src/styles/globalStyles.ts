@@ -6,5 +6,10 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     background-image: url('./public/talent-calc-bg-min.jpg');
     background-repeat: repeat; //TODO: decide if repeat or cover
+    color: ${(props) => props.theme.colors.white};
+  }
+
+  h1, label {
+    margin: 0;
   }
 `

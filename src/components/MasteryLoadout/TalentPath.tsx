@@ -1,27 +1,35 @@
 import React from 'react'
 import styled from 'styled-components'
 import { TalentIcon } from './TalentIcon'
+import { ConfigType } from '../../App.config'
 
-type TalenPathType = {
-  label: string
-  talents: {
-    icon: string
-  }[]
-}
+type TalenPathType = ConfigType['loadout']['paths'][0]
 
 export const TalentPath = ({ label, talents }: TalenPathType) => {
   return (
     <StyledPath>
-      {label}
-      {talents.map((talent) => (
-        <TalentIcon icon={talent.icon} />
+      <StyledLabel>{label}</StyledLabel>
+      {talents.map((talent, i) => (
+        <TalentIcon
+          key={`${talent.iconName}-${i}`}
+          iconName={talent.iconName}
+          showBar={i !== 0}
+          selected={false}
+        />
       ))}
     </StyledPath>
   )
 }
 
 const StyledPath = styled.div`
-  height: 40px;
-  background-color: red;
-  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+`
+
+const StyledLabel = styled.label`
+  width: 144px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
 `

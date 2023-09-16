@@ -11,8 +11,12 @@ export const MasteryLoadout = () => {
       <StyledH1>
         TitanStar Legends - Rune Mastery Loadout Talent Calculator 9000
       </StyledH1>
-      {loadout?.paths.map((path) => (
-        <TalentPath label={path.label} talents={path.talents} />
+      {loadout?.paths.map((path, i) => (
+        <TalentPath
+          key={`${path.label}-${i}`}
+          label={path.label}
+          talents={path.talents}
+        />
       ))}
     </StyledSection>
   )
@@ -20,20 +24,19 @@ export const MasteryLoadout = () => {
 
 const StyledSection = styled.section`
   display: inline-block;
-  margin-top: 200px;
+  margin-top: 150px;
   padding: 15px;
-  border: 2px solid ${(props) => props.theme.colors.grey};
+  border: 2px solid ${(props) => props.theme.colors.greyDark};
   border-radius: 2px;
 `
 
 const StyledH1 = styled.h1`
   margin-bottom: 60px;
-  padding: 6px 50px;
-  background-color: ${(props) => props.theme.colors.grey};
-  letter-spacing: 0.5px;
+  padding: 7px 50px;
+  background-color: ${(props) => props.theme.colors.greyDark};
+
   text-align: center;
   font-size: 20px;
-  font-family: Arial, sans-serif;
   font-weight: 300;
 
   ${(props) => props.theme.media.tabletMax`

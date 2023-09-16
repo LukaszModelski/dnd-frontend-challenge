@@ -2,8 +2,10 @@ import { tabletMax, mobileMax } from './rwd'
 
 export const theme = {
   colors: {
-    white: '#fff',
-    grey: '#191a1b'
+    white: '#f8f8f8',
+    greyLight: 'rgba(93, 93, 93, 0.8)',
+    grey: 'rgba(48, 51, 53, 0.8)',
+    greyDark: 'rgba(24, 26, 28, 0.8)'
   },
   media: {
     tabletMax,

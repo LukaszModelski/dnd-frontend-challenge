@@ -4,14 +4,14 @@ import { TalentPath } from './TalentPath'
 import { useGlobalContext } from '../../contexts/GlobalContext'
 
 export const MasteryLoadout = () => {
-  const { loadout } = useGlobalContext()
+  const { paths } = useGlobalContext()
 
   return (
     <StyledSection>
       <StyledH1>
         TitanStar Legends - Rune Mastery Loadout Talent Calculator 9000
       </StyledH1>
-      {loadout?.paths.map((path, i) => (
+      {paths.map((path, i) => (
         <TalentPath
           key={`${path.label}-${i}`}
           label={path.label}
@@ -25,7 +25,7 @@ export const MasteryLoadout = () => {
 const StyledSection = styled.section`
   display: inline-block;
   margin-top: 150px;
-  padding: 15px;
+  padding: 15px 15px 0;
   border: 2px solid ${(props) => props.theme.colors.greyDark};
   border-radius: 2px;
 `

@@ -3,7 +3,7 @@
 ## TODO
 
 - finish and check Readme
-- RWD
+- save state in localstorage
 -
 
 Features:

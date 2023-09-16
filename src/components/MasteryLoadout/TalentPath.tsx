@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { TalentIcon } from './TalentIcon'
 import { ConfigType } from '../../App.config'
 
-type TalenPathType = ConfigType['loadout']['paths'][0]
+type TalenPathType = ConfigType['paths'][0]
 
 export const TalentPath = ({ label, talents }: TalenPathType) => {
   return (
@@ -13,8 +13,9 @@ export const TalentPath = ({ label, talents }: TalenPathType) => {
         <TalentIcon
           key={`${talent.iconName}-${i}`}
           iconName={talent.iconName}
+          iconIndex={i}
+          pathLabel={label}
           showBar={i !== 0}
-          selected={false}
         />
       ))}
     </StyledPath>

@@ -1,5 +1,6 @@
 export const config = {
   loadout: {
+    maxPoints: 6,
     paths: [
       {
         label: 'Talent Path 1',

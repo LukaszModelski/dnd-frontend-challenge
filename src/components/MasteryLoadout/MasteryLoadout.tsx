@@ -19,17 +19,28 @@ export const MasteryLoadout = () => {
 }
 
 const StyledSection = styled.section`
-  margin: 0 auto;
-  padding-top: 200px;
+  display: inline-block;
+  margin-top: 200px;
+  padding: 15px;
+  border: 2px solid ${(props) => props.theme.colors.grey};
+  border-radius: 2px;
 `
 
 const StyledH1 = styled.h1`
   margin-bottom: 60px;
-  padding: 6px 0;
+  padding: 6px 50px;
   background-color: ${(props) => props.theme.colors.grey};
   letter-spacing: 0.5px;
   text-align: center;
   font-size: 20px;
   font-family: Arial, sans-serif;
   font-weight: 300;
+
+  ${(props) => props.theme.media.tabletMax`
+    background-color: red;
+  `}
+
+  ${(props) => props.theme.media.mobileMax`
+    background-color: blue;
+  `}
 `

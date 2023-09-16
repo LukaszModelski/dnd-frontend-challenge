@@ -12,4 +12,10 @@ export const GlobalStyle = createGlobalStyle`
   h1, label {
     margin: 0;
   }
+
+  button {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+  }
 `

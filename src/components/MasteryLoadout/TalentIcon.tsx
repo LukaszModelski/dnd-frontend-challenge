@@ -5,5 +5,5 @@ type TalenPathType = {
 }
 
 export const TalentIcon = ({ icon }: TalenPathType) => {
-  return <div>{icon}</div>
+  return <button>{icon}testName</button>
 }

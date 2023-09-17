@@ -48,21 +48,57 @@ export const TalentIcon = ({
 }
 
 const StyledButton = styled.button<{ $iconName: IconName; $isActive: boolean }>`
+  position: relative;
   box-sizing: content-box;
   width: ${iconSize}px;
   height: ${iconSize}px;
-  border: 4px solid
-    ${(props) => (props.$isActive ? 'blue' : props.theme.colors.greyLight)}; //TODO: animation
   ${(props) => getIcon(props.$iconName, props.$isActive)}
 
   &:hover {
     ${(props) => getIcon(props.$iconName, true)}
+  }
+
+  /* borders and animation */
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: -4px;
+  }
+
+  &::before {
+    filter: blur(0px);
+    transition: filter 0.3s;
+    background: linear-gradient(
+      0deg,
+      ${(props) => props.theme.colors.greyDark},
+      ${(props) => props.theme.colors.greyLight}
+    );
+    ${(props) => props.$isActive && 'filter: blur(10px);'}
+  }
+
+  &::after {
+    transition: opacity 0.3s;
+    opacity: 0;
+    background: linear-gradient(
+      0deg,
+      ${(props) => props.theme.colors.blueDark},
+      ${(props) => props.theme.colors.blueLight}
+    );
+
+    ${(props) =>
+      props.$isActive &&
+      `
+        opacity: 1;
+      `}
   }
 `
 
 const Bar = styled.span<{ $isActive: boolean }>`
   width: 80px;
   height: 12px;
+  margin: 0 4px;
   background-color: ${(props) => props.theme.colors.greyDark};
   border-top: 1px solid ${(props) => props.theme.colors.grey};
   border-bottom: 1px solid ${(props) => props.theme.colors.grey};

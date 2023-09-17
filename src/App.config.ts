@@ -2,6 +2,7 @@ import { IconName } from './styles/icons'
 
 export type ConfigType = {
   maxPoints: number
+  pointsSpent: number
   paths: {
     label: string
     talents: {
@@ -13,6 +14,7 @@ export type ConfigType = {
 
 export const config: ConfigType = {
   maxPoints: 6,
+  pointsSpent: 0,
   paths: [
     {
       label: 'Talent Path 1',

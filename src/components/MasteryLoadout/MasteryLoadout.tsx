@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TalentPath } from './TalentPath'
 import { useGlobalContext } from '../../contexts/GlobalContext'
+import { PointsCounter } from './PointsCounter'
 
 export const MasteryLoadout = () => {
   const { paths } = useGlobalContext()
@@ -11,13 +12,18 @@ export const MasteryLoadout = () => {
       <StyledH1>
         TitanStar Legends - Rune Mastery Loadout Talent Calculator 9000
       </StyledH1>
-      {paths.map((path, i) => (
-        <TalentPath
-          key={`${path.label}-${i}`}
-          label={path.label}
-          talents={path.talents}
-        />
-      ))}
+      <FlexContainer>
+        <div>
+          {paths.map((path, i) => (
+            <TalentPath
+              key={`${path.label}-${i}`}
+              label={path.label}
+              talents={path.talents}
+            />
+          ))}
+        </div>
+        <PointsCounter />
+      </FlexContainer>
     </StyledSection>
   )
 }
@@ -25,9 +31,13 @@ export const MasteryLoadout = () => {
 const StyledSection = styled.section`
   display: inline-block;
   margin-top: 150px;
-  padding: 15px 15px 0;
+  padding: 15px 15px 50px;
   border: 2px solid ${(props) => props.theme.colors.greyDark};
   border-radius: 2px;
+`
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
 `
 
 const StyledH1 = styled.h1`

@@ -26,6 +26,10 @@ const StyledPath = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 50px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `
 
 const StyledLabel = styled.label`

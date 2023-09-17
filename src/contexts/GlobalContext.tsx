@@ -11,6 +11,10 @@ type GlobalContextType = {
   buyTalentPoint: (pathLabel: string, iconName: IconName) => void
   removeTalentPoints: (pathLabel: string, iconName: IconName) => void
   canBuyTalentPoint: (pathLabel: string, iconIndex: number) => boolean
+  getIcon: (
+    pathLabel: string,
+    iconName: IconName
+  ) => { pathIndex: number; iconIndex: number; isActive: boolean }
 } & ConfigType
 
 const contextStateManager = (
@@ -18,10 +22,14 @@ const contextStateManager = (
 ): GlobalContextType => {
   const [state, setState] = useState(initialGlobalContext)
 
+  // useEffect(() => {
+  //   updateSpentPoints()
+  // }, [state.paths])
+
   const getPathIndex = (pathLabel: string): number =>
     state.paths.findIndex((path) => path.label === pathLabel)
 
-  const getIcon = (
+  const getIcon: GlobalContextType['getIcon'] = (
     pathLabel: string,
     iconName: IconName
   ): { pathIndex: number; iconIndex: number; isActive: boolean } => {
@@ -33,6 +41,16 @@ const contextStateManager = (
     return { pathIndex, iconIndex, isActive }
   }
 
+  const getSpentPoints = (state: ConfigType): number => {
+    let numberOfPoints = 0
+    state.paths.forEach((path) =>
+      path.talents.forEach((talent) => {
+        if (talent.active) numberOfPoints++
+      })
+    )
+    return numberOfPoints
+  }
+
   const buyTalentPoint: GlobalContextType['buyTalentPoint'] = (
     pathLabel,
     iconName
@@ -41,6 +59,7 @@ const contextStateManager = (
       const stateClone = cloneRawObj(prevState)
       const { pathIndex, iconIndex } = getIcon(pathLabel, iconName)
       stateClone.paths[pathIndex].talents[iconIndex].active = true
+      stateClone.pointsSpent = getSpentPoints(stateClone)
       return stateClone
     })
   }
@@ -56,6 +75,7 @@ const contextStateManager = (
       for (let i = iconIndex; i < talentsLength; i++) {
         stateClone.paths[pathIndex].talents[i].active = false
       }
+      stateClone.pointsSpent = getSpentPoints(stateClone)
       return stateClone
     })
   }
@@ -64,7 +84,11 @@ const contextStateManager = (
     pathLabel,
     iconIndex
   ) => {
-    if (iconIndex === 0) {
+    if (state.maxPoints <= state.pointsSpent) {
+      return false
+    }
+
+    if (iconIndex === 0 && state.maxPoints > state.pointsSpent) {
       return true
     }
 
@@ -76,7 +100,8 @@ const contextStateManager = (
     ...state,
     buyTalentPoint,
     removeTalentPoints,
-    canBuyTalentPoint
+    canBuyTalentPoint,
+    getIcon
   }
 }
 

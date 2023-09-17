@@ -17,9 +17,7 @@ export const TalentIcon = ({
   showBar = false
 }: TalenPathType) => {
   const context = useGlobalContext()
-  const path = context.paths.find((path) => path.label == pathLabel)
-  const icon = path?.talents.find((talent) => talent.iconName == iconName)
-  const isActive = !!icon?.active
+  const { isActive } = context.getIcon(pathLabel, iconName)
 
   const handleOnClick = () => {
     if (context.canBuyTalentPoint(pathLabel, iconIndex)) {

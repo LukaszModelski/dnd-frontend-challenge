@@ -11,6 +11,11 @@
 - RWD
 - active talent animation
 - icons size to theme
+- getSpentPoints change forEach to reduce
+
+Things that don't work:
+
+- right click remove points on touch devices
 
 Features:
 

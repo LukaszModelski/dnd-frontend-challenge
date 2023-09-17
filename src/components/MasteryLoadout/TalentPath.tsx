@@ -9,15 +9,17 @@ export const TalentPath = ({ label, talents }: TalenPathType) => {
   return (
     <StyledPath>
       <StyledLabel>{label}</StyledLabel>
-      {talents.map((talent, i) => (
-        <TalentIcon
-          key={`${talent.iconName}-${i}`}
-          iconName={talent.iconName}
-          iconIndex={i}
-          pathLabel={label}
-          showBar={i !== 0}
-        />
-      ))}
+      <FlexContainer>
+        {talents.map((talent, i) => (
+          <TalentIcon
+            key={`${talent.iconName}-${i}`}
+            iconName={talent.iconName}
+            iconIndex={i}
+            pathLabel={label}
+            showBar={i !== 0}
+          />
+        ))}
+      </FlexContainer>
     </StyledPath>
   )
 }
@@ -25,15 +27,27 @@ export const TalentPath = ({ label, talents }: TalenPathType) => {
 const StyledPath = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
   margin-bottom: 50px;
 
   &:last-child {
     margin-bottom: 0;
   }
+
+  ${(props) => props.theme.media.mobileMax`
+    gap: 20px;
+  `}
+`
+
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
 `
 
 const StyledLabel = styled.label`
-  width: 144px;
+  display: block;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { IconName, getIcon } from '../../styles/icons'
+import { IconName, getIconStyles } from '../../styles/icons'
 import { useGlobalContext } from '../../contexts/GlobalContext'
 
 type TalenPathType = {
@@ -50,11 +50,22 @@ const StyledButton = styled.button<{ $iconName: IconName; $isActive: boolean }>`
   box-sizing: content-box;
   width: ${(props) => props.theme.iconSize}px;
   height: ${(props) => props.theme.iconSize}px;
-  ${(props) => getIcon(props.$iconName, props.$isActive)}
+  ${(props) => getIconStyles(props.$iconName, props.$isActive)}
 
   &:hover {
-    ${(props) => getIcon(props.$iconName, true)}
+    ${(props) => getIconStyles(props.$iconName, true)}
   }
+
+  ${(props) =>
+    props.theme.media.mobileMax(`
+      width: ${props.theme.iconSizeMobile}px;
+      height: ${props.theme.iconSizeMobile}px;
+      ${getIconStyles(props.$iconName, true, true)}
+
+      &:hover {
+        ${getIconStyles(props.$iconName, true, true)}
+      }
+    `)}
 
   /* borders and animation */
   &::before,
@@ -94,6 +105,7 @@ const StyledButton = styled.button<{ $iconName: IconName; $isActive: boolean }>`
 `
 
 const Bar = styled.span<{ $isActive: boolean }>`
+  display: block;
   width: 80px;
   height: 12px;
   margin: 0 ${(props) => props.theme.iconBorderSize}px;
@@ -107,5 +119,9 @@ const Bar = styled.span<{ $isActive: boolean }>`
       background-color: ${props.theme.colors.grey};
       border-top: 1px solid ${props.theme.colors.greyLight};
       border-bottom: 1px solid ${props.theme.colors.greyLight};
+  `}
+
+  ${(props) => props.theme.media.mobileMax`
+    width: 40px;
   `}
 `

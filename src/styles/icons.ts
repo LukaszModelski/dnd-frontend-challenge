@@ -9,25 +9,31 @@ export type IconName =
   | 'skull'
 
 export const iconSize = 50
+export const iconSizeMobile = 30
 
-const mapIconToSpritePosition: Record<IconName, { left: number }> = {
-  chevrons: { left: 0 },
-  silverware: { left: iconSize },
-  cake: { left: iconSize * 2 },
-  crown: { left: iconSize * 3 },
-  ship: { left: iconSize * 4 },
-  mask: { left: iconSize * 5 },
-  thunder: { left: iconSize * 6 },
-  skull: { left: iconSize * 7 }
-}
+const spriteIconsOrder: IconName[] = [
+  'chevrons',
+  'silverware',
+  'cake',
+  'crown',
+  'ship',
+  'mask',
+  'thunder',
+  'skull'
+]
 
-export const getIcon = (icon: IconName, active: boolean = false) => {
-  const { left } = mapIconToSpritePosition[icon]
-  const top = active ? 0 : iconSize
+export const getIconStyles = (
+  icon: IconName,
+  active: boolean = false,
+  mobile: boolean = false
+) => {
+  const size = mobile ? iconSizeMobile : iconSize
 
   return `
     background-image: url(./public/talent-icons-sprite-min.png);
-    background-size: auto ${2 * iconSize}px;
-    background-position: -${left}px ${top}px;
+    background-size: auto ${2 * size}px;
+    background-position: 
+      -${size * spriteIconsOrder.indexOf(icon)}px
+      ${active ? 0 : size}px;
   `
 }

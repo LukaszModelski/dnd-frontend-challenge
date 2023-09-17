@@ -16,18 +16,28 @@ export const PointsCounter = () => {
 }
 
 const StyledCounter = styled.div`
-  width: 120px;
-  margin-left: 50px;
-  padding: 10px 20px;
+  padding: 10px 25px;
   border: 1px solid ${(props) => props.theme.colors.greyDark};
   border-radius: 3px;
   background-color: ${(props) => props.theme.colors.black};
   text-align: center;
+
+  ${(props) => props.theme.media.mobileMax`
+    padding: 7px 15px;
+  `}
 `
 
 const StyledLabel = styled.label`
   display: block;
   font-size: 18px;
+
+  ${(props) => props.theme.media.tabletMax`
+    font-size: 16px;
+  `}
+
+  ${(props) => props.theme.media.mobileMax`
+    font-size: 14px;
+  `}
 `
 
 const StyledPoints = styled(StyledLabel)`

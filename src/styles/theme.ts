@@ -1,4 +1,4 @@
-import { iconSize } from './icons'
+import { iconSize, iconSizeMobile } from './icons'
 import { tabletMax, mobileMax } from './rwd'
 
 export const theme = {
@@ -16,5 +16,6 @@ export const theme = {
     mobileMax
   },
   iconSize,
+  iconSizeMobile,
   iconBorderSize: 4
 }

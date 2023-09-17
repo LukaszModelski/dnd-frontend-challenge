@@ -21,13 +21,25 @@ export const TalentIcon = ({
   const icon = path?.talents.find((talent) => talent.iconName == iconName)
   const isActive = !!icon?.active
 
-  const handleOnClick = () => {}
+  const handleOnClick = () => {
+    if (context.canBuyTalentPoint(pathLabel, iconIndex)) {
+      context.buyTalentPoint(pathLabel, iconName)
+    }
+  }
+
+  const handleRightClick = () => {
+    context.removeTalentPoints(pathLabel, iconName)
+  }
 
   return (
     <>
       {showBar && <Bar $isActive={isActive} />}
       <StyledButton
         onClick={() => handleOnClick()}
+        onContextMenu={(e) => {
+          e.preventDefault()
+          handleRightClick()
+        }}
         $isActive={isActive}
         $iconName={iconName}
       ></StyledButton>
@@ -39,7 +51,8 @@ const StyledButton = styled.button<{ $iconName: IconName; $isActive: boolean }>`
   box-sizing: content-box;
   width: ${iconSize}px;
   height: ${iconSize}px;
-  border: 4px solid ${(props) => props.theme.colors.greyLight};
+  border: 4px solid
+    ${(props) => (props.$isActive ? 'blue' : props.theme.colors.greyLight)}; //TODO: animation
   ${(props) => getIcon(props.$iconName, props.$isActive)}
 
   &:hover {

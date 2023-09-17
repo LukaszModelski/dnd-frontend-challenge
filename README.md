@@ -4,7 +4,12 @@
 
 - finish and check Readme
 - save state in localstorage
--
+- reafactor global context types,
+- generyk na rawCopy
+- refaktor buyTalentPoint removeTalentPoint. create findPath, findIcon methods
+- move canBuyTalentPoint into buyTalentPoint
+- RWD
+- active talent animation
 
 Features:
 

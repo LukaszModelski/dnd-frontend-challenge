@@ -1,23 +1,17 @@
 # Front-End Developer Challenge
 
-## TODO
+## Features
 
-- Check browserstack
-- finish and check Readme
-- save state in localstorage
-- active talent animation
-- getSpentPoints change forEach to reduce
-
-Things that don't work:
-
-- right click remove points on touch devices
-
-Features:
-
-- TODO
-- TODO
+- `Webpack` - development process and production build
+- `React` - JS framework for SPA
+- `Typescript` - typing
+- `Styled-components` - styling
+- `Prettier` - code format
+- `Eslint` - code analyzer
 
 ## Local setup
+
+Requirements: `node 16.15.0`
 
 From root:
 
@@ -34,5 +28,5 @@ From root:
 Production build consist of:
 
 - `index.html` - entry file
-- `index.js` - bundled and minified js scripts included at the end of `body` section
+- `index.js` - bundled and minified script
 - `public/` - public directory including all static assets like images

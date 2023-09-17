@@ -13,7 +13,6 @@ type TalenPathType = {
 export const TalentIcon = ({
   iconName,
   pathLabel,
-  iconIndex,
   showBar = false
 }: TalenPathType) => {
   const context = useGlobalContext()

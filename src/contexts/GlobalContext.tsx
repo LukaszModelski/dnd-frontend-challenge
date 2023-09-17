@@ -8,13 +8,15 @@ type ChildrenType = {
 }
 
 type GlobalContextType = {
-  buyTalentPoint: (pathLabel: string, iconName: IconName) => void
-  removeTalentPoints: (pathLabel: string, iconName: IconName) => void
-  canBuyTalentPoint: (pathLabel: string, iconIndex: number) => boolean
+  getPathIndex?: (pathLabel: string) => number
   getIcon: (
     pathLabel: string,
     iconName: IconName
   ) => { pathIndex: number; iconIndex: number; isActive: boolean }
+  getSpentPointsNumber?: (state: ConfigType) => number
+  buyTalentPoint: (pathLabel: string, iconName: IconName) => void
+  removeTalentPoints: (pathLabel: string, iconName: IconName) => void
+  canBuyTalentPoint?: (pathLabel: string, iconIndex: number) => boolean
 } & ConfigType
 
 const contextStateManager = (
@@ -22,17 +24,13 @@ const contextStateManager = (
 ): GlobalContextType => {
   const [state, setState] = useState(initialGlobalContext)
 
-  // useEffect(() => {
-  //   updateSpentPoints()
-  // }, [state.paths])
-
-  const getPathIndex = (pathLabel: string): number =>
+  const getPathIndex: GlobalContextType['getPathIndex'] = (pathLabel) =>
     state.paths.findIndex((path) => path.label === pathLabel)
 
   const getIcon: GlobalContextType['getIcon'] = (
     pathLabel: string,
     iconName: IconName
-  ): { pathIndex: number; iconIndex: number; isActive: boolean } => {
+  ) => {
     const pathIndex = getPathIndex(pathLabel)
     const iconIndex = state.paths[pathIndex].talents.findIndex(
       (icon) => icon.iconName === iconName
@@ -41,7 +39,9 @@ const contextStateManager = (
     return { pathIndex, iconIndex, isActive }
   }
 
-  const getSpentPoints = (state: ConfigType): number => {
+  const getSpentPointsNumber: GlobalContextType['getSpentPointsNumber'] = (
+    state
+  ) => {
     let numberOfPoints = 0
     state.paths.forEach((path) =>
       path.talents.forEach((talent) => {
@@ -55,13 +55,15 @@ const contextStateManager = (
     pathLabel,
     iconName
   ) => {
-    setState((prevState) => {
-      const stateClone = cloneRawObj(prevState)
-      const { pathIndex, iconIndex } = getIcon(pathLabel, iconName)
-      stateClone.paths[pathIndex].talents[iconIndex].active = true
-      stateClone.pointsSpent = getSpentPoints(stateClone)
-      return stateClone
-    })
+    const { iconIndex, pathIndex } = getIcon(pathLabel, iconName)
+    if (canBuyTalentPoint && canBuyTalentPoint(pathLabel, iconIndex)) {
+      setState((prevState) => {
+        const stateClone = cloneRawObj(prevState)
+        stateClone.paths[pathIndex].talents[iconIndex].active = true
+        stateClone.pointsSpent = getSpentPointsNumber(stateClone)
+        return stateClone
+      })
+    }
   }
 
   const removeTalentPoints: GlobalContextType['removeTalentPoints'] = (
@@ -75,7 +77,7 @@ const contextStateManager = (
       for (let i = iconIndex; i < talentsLength; i++) {
         stateClone.paths[pathIndex].talents[i].active = false
       }
-      stateClone.pointsSpent = getSpentPoints(stateClone)
+      stateClone.pointsSpent = getSpentPointsNumber(stateClone)
       return stateClone
     })
   }
@@ -100,7 +102,6 @@ const contextStateManager = (
     ...state,
     buyTalentPoint,
     removeTalentPoints,
-    canBuyTalentPoint,
     getIcon
   }
 }

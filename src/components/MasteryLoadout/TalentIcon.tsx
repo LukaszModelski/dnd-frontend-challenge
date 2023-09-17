@@ -20,9 +20,7 @@ export const TalentIcon = ({
   const { isActive } = context.getIcon(pathLabel, iconName)
 
   const handleOnClick = () => {
-    if (context.canBuyTalentPoint(pathLabel, iconIndex)) {
-      context.buyTalentPoint(pathLabel, iconName)
-    }
+    context.buyTalentPoint(pathLabel, iconName)
   }
 
   const handleRightClick = () => {

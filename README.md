@@ -5,10 +5,6 @@
 - Check browserstack
 - finish and check Readme
 - save state in localstorage
-- reafactor global context types,
-- refactor buyTalentPoint removeTalentPoint. create findPath, findIcon methods
-- move canBuyTalentPoint into buyTalentPoint
-- RWD
 - active talent animation
 - getSpentPoints change forEach to reduce
 

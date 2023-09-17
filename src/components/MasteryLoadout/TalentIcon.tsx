@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { IconName, getIcon, iconSize } from '../../styles/icons'
+import { IconName, getIcon } from '../../styles/icons'
 import { useGlobalContext } from '../../contexts/GlobalContext'
 
 type TalenPathType = {
@@ -48,8 +48,8 @@ export const TalentIcon = ({
 const StyledButton = styled.button<{ $iconName: IconName; $isActive: boolean }>`
   position: relative;
   box-sizing: content-box;
-  width: ${iconSize}px;
-  height: ${iconSize}px;
+  width: ${(props) => props.theme.iconSize}px;
+  height: ${(props) => props.theme.iconSize}px;
   ${(props) => getIcon(props.$iconName, props.$isActive)}
 
   &:hover {
@@ -62,7 +62,7 @@ const StyledButton = styled.button<{ $iconName: IconName; $isActive: boolean }>`
     content: '';
     position: absolute;
     z-index: -1;
-    inset: -4px;
+    inset: -${(props) => props.theme.iconBorderSize}px;
   }
 
   &::before {
@@ -96,7 +96,7 @@ const StyledButton = styled.button<{ $iconName: IconName; $isActive: boolean }>`
 const Bar = styled.span<{ $isActive: boolean }>`
   width: 80px;
   height: 12px;
-  margin: 0 4px;
+  margin: 0 ${(props) => props.theme.iconBorderSize}px;
   background-color: ${(props) => props.theme.colors.greyDark};
   border-top: 1px solid ${(props) => props.theme.colors.grey};
   border-bottom: 1px solid ${(props) => props.theme.colors.grey};

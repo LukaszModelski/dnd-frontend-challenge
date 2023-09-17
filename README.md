@@ -2,15 +2,14 @@
 
 ## TODO
 
-- COUNTER
+- Check browserstack
 - finish and check Readme
 - save state in localstorage
 - reafactor global context types,
-- refaktor buyTalentPoint removeTalentPoint. create findPath, findIcon methods
+- refactor buyTalentPoint removeTalentPoint. create findPath, findIcon methods
 - move canBuyTalentPoint into buyTalentPoint
 - RWD
 - active talent animation
-- icons size to theme
 - getSpentPoints change forEach to reduce
 
 Things that don't work:

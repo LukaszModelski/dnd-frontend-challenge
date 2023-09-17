@@ -1,3 +1,4 @@
+import { iconSize } from './icons'
 import { tabletMax, mobileMax } from './rwd'
 
 export const theme = {
@@ -13,5 +14,7 @@ export const theme = {
   media: {
     tabletMax,
     mobileMax
-  }
+  },
+  iconSize,
+  iconBorderSize: 4
 }

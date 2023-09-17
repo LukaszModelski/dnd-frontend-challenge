@@ -87,8 +87,11 @@ const StyledButton = styled.button<{ $iconName: IconName; $isActive: boolean }>`
   &::after {
     transition: opacity 0.3s;
     opacity: 0;
-    background: linear-gradient(
-      0deg,
+    animation: rotation 5s linear infinite;
+    background: conic-gradient(
+      from var(--gradient-angle, 0deg),
+      ${(props) => props.theme.colors.blueLight},
+      ${(props) => props.theme.colors.blueDark},
       ${(props) => props.theme.colors.blueDark},
       ${(props) => props.theme.colors.blueLight}
     );

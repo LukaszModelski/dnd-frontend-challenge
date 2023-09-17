@@ -21,4 +21,20 @@ export const GlobalStyle = createGlobalStyle`
     background-color: transparent;
     cursor: pointer;
   }
+
+  /* active talent border animation */
+  @property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes rotation {
+    0% {
+      --gradient-angle: 0deg;
+    }
+    100% {
+      --gradient-angle: 360deg;
+    }
+  }
 `

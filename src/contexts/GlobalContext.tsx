@@ -2,22 +2,14 @@ import React, { createContext, useContext, useState } from 'react'
 import { config, ConfigType } from '../App.config'
 import { IconName } from '../styles/icons'
 import { cloneRawObj } from '../utils/cloneRawObj'
+import {
+  getTalentsFromStorage,
+  saveTalentsInStorage
+} from '../utils/localStorage'
+import { GlobalContextType, ChildrenType } from './GlobalContext.types'
 
-type ChildrenType = {
-  children: JSX.Element | JSX.Element[]
-}
-
-type GlobalContextType = {
-  getPathIndex?: (pathLabel: string) => number
-  getIcon: (
-    pathLabel: string,
-    iconName: IconName
-  ) => { pathIndex: number; iconIndex: number; isActive: boolean }
-  getSpentPointsNumber?: (state: ConfigType) => number
-  buyTalentPoint: (pathLabel: string, iconName: IconName) => void
-  removeTalentPoints: (pathLabel: string, iconName: IconName) => void
-  canBuyTalentPoint?: (pathLabel: string, iconIndex: number) => boolean
-} & ConfigType
+const stateFromLocalStorage = getTalentsFromStorage()
+const initState = stateFromLocalStorage || config
 
 const contextStateManager = (
   initialGlobalContext: ConfigType
@@ -61,6 +53,7 @@ const contextStateManager = (
         const stateClone = cloneRawObj(prevState)
         stateClone.paths[pathIndex].talents[iconIndex].active = true
         stateClone.pointsSpent = getSpentPointsNumber(stateClone)
+        saveTalentsInStorage(stateClone)
         return stateClone
       })
     }
@@ -78,6 +71,7 @@ const contextStateManager = (
         stateClone.paths[pathIndex].talents[i].active = false
       }
       stateClone.pointsSpent = getSpentPointsNumber(stateClone)
+      saveTalentsInStorage(stateClone)
       return stateClone
     })
   }
@@ -106,10 +100,10 @@ const contextStateManager = (
   }
 }
 
-const GlobalContext = createContext(config as GlobalContextType)
+const GlobalContext = createContext(initState as GlobalContextType)
 
 export const GlobalContextProvider = ({ children }: ChildrenType) => (
-  <GlobalContext.Provider value={contextStateManager(config)}>
+  <GlobalContext.Provider value={contextStateManager(initState)}>
     {children}
   </GlobalContext.Provider>
 )
